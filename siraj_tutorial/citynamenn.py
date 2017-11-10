@@ -2,6 +2,8 @@ from __future__ import absolute_import, division, print_function
 import os
 # LSTM(long short term memory network) to generate city names
 import ssl
+
+import sys
 import tflearn
 from six import moves
 from tflearn.data_utils import *
@@ -11,11 +13,8 @@ from tflearn.data_utils import *
 path = "US_cities.txt"
 
 if not os.path.isfile(path):
-    context = ssl._create_unverified_context()
-    # get data set
-    moves.urllib.request.urlretrieve(
-        "https://raw.githubusercontent.com/tflearn/tflearn.github.io/master/resources/US_Cities.txt", path,
-        context=context)
+    print("NOPE")
+    sys.exit()
 
 # city name max length
 maxlen = 20
@@ -37,7 +36,8 @@ g = tflearn.lstm(g, 512)
 g = tflearn.dropout(g, 0.5)
 # last layer, softmax is a type of logistic regression
 g = tflearn.fully_connected(g, len(char_idx), activation='softmax')
-
+g = tflearn.regression(g, optimizer='adam', loss='categorical_crossentropy',
+                       learning_rate=0.001)
 
 # generate cities
 # checkpoints save model status
