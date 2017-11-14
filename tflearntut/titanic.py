@@ -1,5 +1,5 @@
 #
-# NN Classifier from http://tflearn.org/tutorials/quickstart.html
+# Neural Network Classifier from http://tflearn.org/tutorials/quickstart.html
 #
 
 import numpy as np
@@ -16,7 +16,7 @@ from tflearn.data_utils import load_csv
 data, labels = load_csv('titanic_dataset.csv', target_column=0, categorical_labels=True, n_classes=2)
 
 
-# preprocessing function
+# preprocessor function
 def preprocess(data, columns_to_ignore):
     # sort by descending id and delete columns
     for id in sorted(columns_to_ignore, reverse=True):
